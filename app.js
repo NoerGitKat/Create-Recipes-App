@@ -28,5 +28,18 @@ const listener = app.listen(3000, () => {
 })
 
 app.get('/', (request, response) => {
-	response.render('index');
+	//Set up PG connection
+	pg.connect(connection, (err, client, done) => {
+		if(err) {
+			return console.lerr('Beep boop error fetching client from pool', err);
+		}
+		client.query('SELECT * FROM recipes', (err, result) => {
+			if(err) {
+				return console.error('Beep boop error running query', err);
+			}
+			response.render('index', {recipes: result.rows});
+			done();
+		});
+
+	});
 });

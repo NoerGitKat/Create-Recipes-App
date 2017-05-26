@@ -3,8 +3,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Create your own recipe!</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-	{+body /}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-offset-2 col-md-7">
+				{+body /}
+			</div>
+		</div>
+	</div>
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

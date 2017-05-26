@@ -1,5 +1,9 @@
 {>"layout" /}
 
 {<body}
-This is the index, yo
+	{#recipes}
+		<div class="well"
+			<h4>{name} <button class="btn btn-default">View</button></button></h4>
+		</div>
+	{/recipes}
 {/body}
