@@ -43,3 +43,31 @@ app.get('/', (request, response) => {
 
 	});
 });
+
+app.post('/add', (request, response) => {
+	//Set up PG connection
+	pg.connect(connection, (err, client, done) => {
+		if(err) {
+			return console.error('Beep boop error fetching client from pool', err);
+		}
+		client.query("INSERT INTO recipes(name, ingredients, directions) VALUES($1, $2, $3)",
+			[request.body.name, request.body.ingredients, request.body.directions]);
+
+		done();
+		response.redirect('/');
+	});
+});
+
+app.delete('/delete/:id', (request, response) => {
+		//Set up PG connection
+	pg.connect(connection, (err, client, done) => {
+		if(err) {
+			return console.error('Beep boop error fetching client from pool', err);
+		}
+		client.query('DELETE FROM recipes WHERE id = $1',
+			[request.params.id]);
+
+		done();
+		response.send(200);
+	});
+});
