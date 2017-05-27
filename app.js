@@ -59,7 +59,7 @@ app.post('/add', (request, response) => {
 });
 
 app.delete('/delete/:id', (request, response) => {
-		//Set up PG connection
+	//Set up PG connection
 	pg.connect(connection, (err, client, done) => {
 		if(err) {
 			return console.error('Beep boop error fetching client from pool', err);
@@ -69,5 +69,19 @@ app.delete('/delete/:id', (request, response) => {
 
 		done();
 		response.send(200);
+	});
+});
+
+app.post('/edit', (request, response) => {
+	//Set up PG connection
+	pg.connect(connection, (err, client, done) => {
+		if(err) {
+			return console.error('Beep boop error fetching client from pool', err);
+		}
+		client.query('UPDATE recipes SET name=$1, ingredients=$2, directions=$3 WHERE id = $4',
+			[request.body.name, request.body.ingredients, request.body.directions, request.body.id]);
+
+		done();
+		response.redirect('/');
 	});
 });
